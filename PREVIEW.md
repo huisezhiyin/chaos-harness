@@ -19,7 +19,7 @@ git rev-parse HEAD
 ```sh
 pnpm install --frozen-lockfile
 node bin/chaos-preview.mjs --help
-node bin/chaos-preview-check.mjs
+pnpm check
 ```
 
 当前为源码 Alpha 候选；具体发布状态见仓库 Releases，验证结果见 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness-public/actions/workflows/preview.yml)。
@@ -59,7 +59,7 @@ Host 临时文件与 Node 编译缓存放在私有状态目录中的独立 `runt
 ## 自检与问题报告
 
 ```sh
-node bin/chaos-preview-check.mjs
+pnpm check
 node bin/chaos-preview-check.mjs --native-host
 ```
 

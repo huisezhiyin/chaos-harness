@@ -13,8 +13,8 @@
     "agent:opencode": "tsx packages/adapters/opencode-codex-bridge/src/cli.ts",
     "chaos": "tsx packages/adapters/opencode-codex-bridge/src/daily-cli.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run packages && node --test evals/*.test.mjs evals/*/*.test.mjs",
-    "check": "pnpm typecheck && pnpm test"
+    "test": "node bin/chaos-preview-check.mjs",
+    "check": "node bin/chaos-preview-check.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

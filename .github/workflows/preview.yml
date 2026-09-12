@@ -15,4 +15,4 @@ jobs:
           node-version: '22'
       - run: npm install --global pnpm@11.6.0
       - run: pnpm install --frozen-lockfile
-      - run: node bin/chaos-preview-check.mjs
+      - run: pnpm check

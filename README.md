@@ -12,7 +12,7 @@
 
 ```sh
 pnpm install --frozen-lockfile
-node bin/chaos-preview-check.mjs
+pnpm check
 node bin/chaos-preview.mjs --env-file ~/.config/chaos-preview.env --root /path/to/your/git-repository
 ```
 

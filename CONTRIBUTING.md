@@ -6,10 +6,12 @@
 
 ```sh
 pnpm install --frozen-lockfile
-node bin/chaos-preview-check.mjs
+pnpm check
 # 需要已安装支持的 OpenCode；只调用本地固定响应
 node bin/chaos-preview-check.mjs --native-host
 ```
+
+`pnpm test` 与 `pnpm check` 使用同一检查入口，包含类型检查、产品测试和预览检查；CI 执行 `pnpm check`。
 
 基础检查不需要模型密钥或维护者私有评测资产。历史 eval 脚本依赖特定来源、准入和私有证据，不能直接用作普通贡献者的测试入口。不要重跑、覆盖或重新判定已冻结评测结果。
 

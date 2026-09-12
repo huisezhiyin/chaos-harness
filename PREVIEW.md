@@ -1,12 +1,12 @@
 # Chaos Harness 开发者预览
 
-这是 v0.1 的候选入口，还不是正式发布。它让模型在你的 Git 仓库内完成代码任务，通过 OpenCode 界面操作，并记录任务过程与完成判定。
+这是已发布的 [v0.1.0-alpha 源码预览](https://github.com/huisezhiyin/chaos-harness/releases/tag/v0.1.0-alpha)，仍处于实验阶段。它让模型在你的 Git 仓库内完成代码任务，通过 OpenCode 界面操作，并记录任务过程与完成判定。
 
 当前支持 macOS、Node.js 22、pnpm 11.6.0、OpenCode 1.18.27。代码兼容列表同时允许 OpenCode 1.18.26，但本次原生验证使用 1.18.27。当前主验证模型为个人 DashScope Qwen；其他 chat-api 配置可沿用现有 profile 机制，其兼容性与效果需要单独验证。Linux、Windows、Codex fallback 不属于本预览支持范围。
 
 ## 安装与首次使用
 
-安装上述前置工具后，从本发布仓库取得源码。若仓库尚未公开，需要已有访问权限。
+安装上述前置工具后，从本发布仓库取得源码。仓库已公开；以下步骤使用当前 main 分支。
 
 ```sh
 git clone --single-branch --branch main https://github.com/huisezhiyin/chaos-harness.git
@@ -22,7 +22,7 @@ node bin/chaos-preview.mjs --help
 pnpm check
 ```
 
-当前为源码 Alpha 候选；具体发布状态见仓库 Releases，验证结果见 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness/actions/workflows/preview.yml)。
+源码 Alpha 已发布；固定发布快照见 [v0.1.0-alpha](https://github.com/huisezhiyin/chaos-harness/releases/tag/v0.1.0-alpha)，验证结果见 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness/actions/workflows/preview.yml)。
 
 新建仅自己可读的配置文件，例如 `~/.config/chaos-preview.env`，填写自己的服务配置：
 

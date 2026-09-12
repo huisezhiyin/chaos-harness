@@ -1,0 +1,242 @@
+{
+  "batchId": "preview-eval20-v1",
+  "status": "selected-unqualified",
+  "launchReady": false,
+  "sourceIdentities": 12,
+  "environmentsPassed": 12,
+  "bugReferencesPassed": 8,
+  "qualifiedTasks": 0,
+  "admittedTasks": 0,
+  "providerCalls": 0,
+  "pending": [
+    "12 owner-authored task reference implementations and executable probes",
+    "Independent negative controls for all 20 tasks",
+    "Delivery boundary integration and validation",
+    "Exact compiler/toolchain/runtime/grader identity binding",
+    "Qualification, admissions and single-use serial runner"
+  ],
+  "tasks": [
+    {
+      "id": "preview-eval20-v1-map-aborted-listener",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-map-iterable-index",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-map-iterable-signal",
+      "kind": "feature",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-map-validation-helper",
+      "kind": "refactor",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-queue-size-wakeup",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-queue-timeout-validation",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-queue-has-id",
+      "kind": "feature",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-queue-priority-lifecycle",
+      "kind": "tests",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-query-own-types",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-query-relative-fragment",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-query-value-helper",
+      "kind": "refactor",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-query-replacer-arrays",
+      "kind": "tests",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-normalize-query-predicate",
+      "kind": "feature",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-normalize-data-helper",
+      "kind": "refactor",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-normalize-query-helper",
+      "kind": "refactor",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-normalize-options-interactions",
+      "kind": "tests",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-uri-reserved-path",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-uri-component-case",
+      "kind": "bug",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "passed",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-uri-resolve-many",
+      "kind": "feature",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    },
+    {
+      "id": "preview-eval20-v1-uri-resolution-components",
+      "kind": "tests",
+      "sourceVerified": true,
+      "originalChecksPassed": true,
+      "bugReferenceScreening": "not-applicable",
+      "qualified": false,
+      "admitted": false
+    }
+  ],
+  "privateEvidenceSha256": {
+    "bug-reference-checks/map-aborted-listener/check-1788870054045531000.json": "1c54c340fbb9eae643c9f270d583782e41be09c21d2258b31aee59f3f212e559",
+    "bug-reference-checks/map-iterable-index/check-1788870054186601000.json": "a154ba8cc3edbdf07ae1e69839e54c6acba4c14830ef81ccbe650bc055ede7c4",
+    "bug-reference-checks/query-own-types/check-1788870068990656000.json": "f9cbbbacf8801471cfce8e10aeb9f8a0cc138d88eef52afd0a01134702d1229f",
+    "bug-reference-checks/query-relative-fragment/check-1788870082577786000.json": "e1b9e13ca3ec5643fdc0a0d924eac49c1aeeda8b40e87e1dfbfac972e022270c",
+    "bug-reference-checks/queue-size-wakeup/check-1788870092075810000.json": "68bd55d39f33a7335573004cc4cfdcb214d194b8c8e18cec5983375ace360e67",
+    "bug-reference-checks/queue-timeout-validation/check-1788870107715887000.json": "4aa50d52dcd617192b9bd30e6566678945079b97cd9e0e2481314cca46a1baf9",
+    "bug-reference-checks/uri-component-case/check-1788870090962783000.json": "935a00ef399c688b15bee5c5796a1384a23ee9a5948e80c3f071341f134b09f9",
+    "bug-reference-checks/uri-reserved-path/check-1788869961368834000.json": "614e9da322e7202957ecba1360aef58695a1350e54b5b9a464b70bcd37203b04",
+    "dependencies-v2/fastify--fast-uri-74e2a4dd7db4762c699d18778c2fc3d800005e6a/environment.json": "3cf114ca10082d22fe43047ecde0bd4346a5b9e2889d05367ae7e933c4a7d22e",
+    "dependencies-v2/fastify--fast-uri-75486d041b89d36d88f36c119cd8dc492174071d/environment.json": "0515379ef49d9cf284bbf0ca92808abcd4eab733787e035f02c1a8f6ece8f271",
+    "dependencies-v2/fastify--fast-uri-a34ced25d015d12dfc2b0cf85ce01a4a0d12ecf6/environment.json": "8a123b2819baa895d425172b9f1cdb6da476e8fb58b467a8a84b1338cf5fb146",
+    "dependencies-v2/sindresorhus--normalize-url-863d275c21d6411a7494b8f728a515633bc01d84/environment.json": "6087be93219fe5add74e13c8f611e7b213db1b1b30c875f163988639ecdc51b9",
+    "dependencies-v2/sindresorhus--p-map-22dda61ea29037ba85af25e84bc5efba77e62f44/environment.json": "31a6ea69bcf9b9f9921d15acde9f59531a9de2fca5dfbcff293fd8e2259833ab",
+    "dependencies-v2/sindresorhus--p-map-3ada5f36632aca8df860c376856270b6d2ba2de8/environment.json": "a92378c27193655fe41589fc2eb4ec7472cc1aab7b8c57a59630f836af95535e",
+    "dependencies-v2/sindresorhus--p-map-65aaa8f4d7e757a5254a146c4c39403efa9e2139/environment.json": "8c4085162c4502aa9437c4ac1c691bca55cef62c4be9ce84e454d8e99ba1c278",
+    "dependencies-v2/sindresorhus--p-queue-180ab9e25cd10b6f548767d7176076b50d25e188/environment.json": "47599d12e569dac0f3ca9083d081272d8d421aec9ec04318cf4efc697f4c8e61",
+    "dependencies-v2/sindresorhus--p-queue-a06fbc928725f074c72716e1ba21106df6822dae/environment.json": "22302820629f790897221447bdc31a5ab419930b6b31aeb6b20478f510a9fd6d",
+    "dependencies-v2/sindresorhus--p-queue-cfa917af261fb6db9eb1281221ba21093eb49e3d/environment.json": "ce2abab73fd562c2d3da0fed1143bfa51ec698e6af3ef86bcdfebadb539801e7",
+    "dependencies-v2/sindresorhus--query-string-7fd813338963583472586f228a74dcbfb067e785/environment.json": "9ff62b11e4319113f22c080c73bb8e36f309802bc0f9576a4fb60b801d06ee22",
+    "dependencies-v2/sindresorhus--query-string-f5daa07cc0c1bc91c00102426888fff2d17cedb6/environment.json": "566aa865376e9896d343b37d15b610fd129de394c8625fa1d567d12ab05af6bd",
+    "references/map-aborted-listener/reference.json": "1666633ff896dd8673f752a5ef288c82054cd2aaf5a4cc48a366dd0910b5b506",
+    "references/map-iterable-index/reference.json": "2e2573477ada662bacdcc0278f2e8fad362b1a14d96fad9cae5b6ee9b8fa22e5",
+    "references/query-own-types/reference.json": "f6f325a95d192ee15d32a042fdd2c23af6788d29e6dfb1e858750c679ec65d33",
+    "references/query-relative-fragment/reference.json": "7281448c5e2b42ebd6cbafadfab1430ee02ff864233fb706b272feb31ed00f62",
+    "references/queue-size-wakeup/reference.json": "1657ad5701dad751c226599c512d0c002e7d93562476b0bbefe0657ee8f86944",
+    "references/queue-timeout-validation/reference.json": "af46d25f8b3dd25bf99a44dbc1a9f7e107c91f5efbd643d1d1b7c32f3234c14f",
+    "references/uri-component-case/reference.json": "7b2fae90553213f59182f5613555861f697a4172b29d1d7f7584b7ca26a73d24",
+    "references/uri-reserved-path/reference.json": "799e1b865ba23ae480f2857cb3975b0c2833629932634b458675b4dd53a3e61b",
+    "sources/fastify--fast-uri-74e2a4dd7db4762c699d18778c2fc3d800005e6a/source.json": "9a2e44169d3d6e820d382128036814754661498fa138e0589439d62327ad840d",
+    "sources/fastify--fast-uri-75486d041b89d36d88f36c119cd8dc492174071d/source.json": "bc6260d9bf6a0431652cbf6008863900d43554b1f41db7492dfd117d4536257d",
+    "sources/fastify--fast-uri-a34ced25d015d12dfc2b0cf85ce01a4a0d12ecf6/source.json": "7a45e5cad009b0625d02474b3c6cb3fcdab0cb8f6a89fa294303381346038eb7",
+    "sources/sindresorhus--normalize-url-863d275c21d6411a7494b8f728a515633bc01d84/source.json": "b40c14f622f8b58f1be968b2d4b511b7124b7df399a60ff4294671fc56f5f5cf",
+    "sources/sindresorhus--p-map-22dda61ea29037ba85af25e84bc5efba77e62f44/source.json": "f04b75431984fb27db1b40edc6340dcdb9c81ec198f8777de9b0aa08cc973301",
+    "sources/sindresorhus--p-map-3ada5f36632aca8df860c376856270b6d2ba2de8/source.json": "66bf566d496e11e9f643084ee2d8d2971243ab8e9cff0ecca0220ce99dc6bd3b",
+    "sources/sindresorhus--p-map-65aaa8f4d7e757a5254a146c4c39403efa9e2139/source.json": "ca2a078b5fd43f6cc0fb756761e649e83e9fde2ea409df9e9d68874bf55a271c",
+    "sources/sindresorhus--p-queue-180ab9e25cd10b6f548767d7176076b50d25e188/source.json": "5b3050667a4299e0fc3f5c386767b4caf6913e8ec1d8c3d74b1020b4efedb4b4",
+    "sources/sindresorhus--p-queue-a06fbc928725f074c72716e1ba21106df6822dae/source.json": "c6142e1415065b36089c86f9de0b65d0856b63d7322c15d754d9f503f6991078",
+    "sources/sindresorhus--p-queue-cfa917af261fb6db9eb1281221ba21093eb49e3d/source.json": "3fb63f70bf46fbdf53154a5bee0dd2c25d2703c8e3c86f18ac2a46c358236c60",
+    "sources/sindresorhus--query-string-7fd813338963583472586f228a74dcbfb067e785/source.json": "33bac05cabe149317450467d386b0ac6ec98b732f15e6d5081a6a4f84b5122f5",
+    "sources/sindresorhus--query-string-f5daa07cc0c1bc91c00102426888fff2d17cedb6/source.json": "a88639069ec55f54e495a117d556f58451713a91fffbc37b81e3a8af62255df3"
+  }
+}

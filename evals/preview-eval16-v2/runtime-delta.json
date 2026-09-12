@@ -1,0 +1,6 @@
+{
+  "packages/adapters/opencode-codex-bridge/src/qwen.ts": {
+    "before": "b1b62b29707a53b55e94bf6f39c71512a3c6f264166dbcd6fbdf49849496c5d0",
+    "after": "e500d22209bf8e550bb95fc7f7d0e5478ca454c5df35d1e450e77bae83c65c46"
+  }
+}

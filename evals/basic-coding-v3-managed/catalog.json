@@ -1,0 +1,37 @@
+{
+  "batchId": "basic-coding-v3-managed",
+  "baseline": "26a9977b35f424ce85fba8f1ae07d0b7f0c34663",
+  "tasks": [
+    {
+      "id": "basic-coding-v3-managed-defer",
+      "repository": "https://github.com/sindresorhus/p-defer",
+      "issue": "https://github.com/sindresorhus/p-defer",
+      "head": "67a30a04de1086305b24a31a37594d3129fee415",
+      "tree": "21af584969ea930754b22bfb0106dfb44fb54f88",
+      "kind": "defer",
+      "taskType": "feature",
+      "title": "defer",
+      "allowed": [
+        "index.js",
+        "index.d.ts",
+        "readme.md",
+        "test/"
+      ],
+      "lockfile": null
+    },
+    {
+      "id": "basic-coding-v3-managed-once",
+      "repository": "https://github.com/sindresorhus/onetime",
+      "issue": "https://github.com/sindresorhus/onetime",
+      "head": "481ec583f8303e98c4d1d16bb316ef8e6b04d72c",
+      "tree": "959b1b9f02469dbd8e0ec3a470cbf67fe5648574",
+      "kind": "once",
+      "taskType": "tests",
+      "title": "once",
+      "allowed": [
+        "test/"
+      ],
+      "lockfile": null
+    }
+  ]
+}

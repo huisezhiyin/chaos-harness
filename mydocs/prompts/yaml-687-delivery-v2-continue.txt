@@ -1,0 +1,7 @@
+Continue the existing YAML #687 fix in this checkout, preserving its current source fix and regression coverage.
+
+Independent acceptance passed the core round-trip behavior, source/test types and an isolated build, but found incorrect assertions in tests/doc/comments.ts: doc.get('a') and res.get('a') return Scalar nodes, and the hash-content scalar value includes a trailing newline. Inspect the actual API and test output, then repair the assertions without weakening coverage or removing the tests. Other assertions may have been masked by those failures; inspect and fix them based on evidence.
+
+Run focused tests, the full source suite, both source and test type checks, and build. Inspect the final diff and finish any task plan before proposing completion. Report any failed or blocked command honestly. This is a targeted continuation with human-provided failure feedback, not a fresh blind benchmark.
+
+Work only in this checkout. Preserve the existing source fix unless evidence requires a correction. Do not modify package manifests, lockfiles, dependency installations, test configuration or submodules. Do not access credentials, external solutions, other checkouts or Harness/verifier internals. No commit, push, PR, external writes, reset, clean, branch/worktree operations, publish or deployment. Let Chaos Harness manage its normal bounded checkpoints and recovery.

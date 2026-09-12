@@ -1,0 +1,52 @@
+{
+  "batchId": "basic-coding-v2-host-scratch",
+  "baseline": "26a9977b35f424ce85fba8f1ae07d0b7f0c34663",
+  "tasks": [
+    {
+      "id": "basic-coding-v2-host-scratch-02-queue-enqueue-all",
+      "repository": "https://github.com/sindresorhus/yocto-queue",
+      "issue": "https://github.com/sindresorhus/yocto-queue",
+      "head": "b07eac099753833b29d06c614149904445739776",
+      "tree": "5a5f01d44bd03ec879cda4bf9591fe7f77598729",
+      "kind": "queue",
+      "taskType": "feature",
+      "title": "02-queue-enqueue-all",
+      "allowed": [
+        "index.js",
+        "index.d.ts",
+        "readme.md",
+        "test/"
+      ],
+      "lockfile": null
+    },
+    {
+      "id": "basic-coding-v2-host-scratch-03-retry-context",
+      "repository": "https://github.com/sindresorhus/p-retry",
+      "issue": "https://github.com/sindresorhus/p-retry",
+      "head": "81cd2f0e523faeeff685c5878224a0d7390ff0db",
+      "tree": "fbc7e6aa804576d6a110b6a2f2fbc119c2c8f72f",
+      "kind": "retry",
+      "taskType": "refactor",
+      "title": "03-retry-context",
+      "allowed": [
+        "index.js",
+        "test/"
+      ],
+      "lockfile": null
+    },
+    {
+      "id": "basic-coding-v2-host-scratch-04-limit-regressions",
+      "repository": "https://github.com/sindresorhus/p-limit",
+      "issue": "https://github.com/sindresorhus/p-limit",
+      "head": "783068bb9e967fd7bea8642e1bf5a3627fe38bdf",
+      "tree": "66898a57ae21e27b15afc517b593ed4c72659782",
+      "kind": "limit",
+      "taskType": "tests",
+      "title": "04-limit-regressions",
+      "allowed": [
+        "test/"
+      ],
+      "lockfile": null
+    }
+  ]
+}

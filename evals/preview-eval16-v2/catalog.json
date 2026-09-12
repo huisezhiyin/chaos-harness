@@ -1,0 +1,698 @@
+{
+  "batchId": "preview-eval16-v2",
+  "status": "selected-unqualified",
+  "releaseBase": "96d7599",
+  "tasks": [
+    {
+      "id": "preview-eval16-v2-map-iterable-index",
+      "repository": "https://github.com/sindresorhus/p-map",
+      "repo": "sindresorhus/p-map",
+      "kind": "bug",
+      "slug": "map-iterable-index",
+      "head": "65aaa8f4d7e757a5254a146c4c39403efa9e2139",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/sindresorhus/p-map/pull/88",
+      "referenceCommit": "1af51b57534b284ead73cca65f26b56bb9390768",
+      "contract": "pMapIterable mapper indices follow source positions even when promised values resolve out of order. Preserve output order, skip behavior, concurrency and backpressure. Add deterministic regression tests.",
+      "acceptance": [
+        "Release promised inputs in controlled reverse order and inspect mapper indices",
+        "Reject settlement-order indexing and constant-index mutants"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "index.d.ts",
+        "test.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "2da41fe08e9c914a34a2559ca0bafdc24435a411",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-map-iterable-index.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-map-iterable-index.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-map-iterable-index"
+    },
+    {
+      "id": "preview-eval16-v2-map-iterable-signal",
+      "repository": "https://github.com/sindresorhus/p-map",
+      "repo": "sindresorhus/p-map",
+      "kind": "feature",
+      "slug": "map-iterable-signal",
+      "head": "22dda61ea29037ba85af25e84bc5efba77e62f44",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/p-map",
+      "referenceCommit": null,
+      "contract": "Add optional AbortSignal support to pMapIterable. Already-aborted input performs no iteration; later abort rejects pending consumer reads with the exact reason and prevents new mapper scheduling. Already-started tasks settle without unhandled rejections. Remove listeners on completion and consumer cancellation. Update declarations and docs.",
+      "acceptance": [
+        "Deterministic abort before start, during active mappers, and early consumer return",
+        "Types accept signal; reject swallowed abort and continued scheduling mutants"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "index.d.ts",
+        "readme.md"
+      ],
+      "status": "selected-unqualified",
+      "tree": "aec86b1edba6c63c8d1a9bc22e9e4f64b6ae990a",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js",
+          "index.d.ts",
+          "readme.md"
+        ],
+        "allowedNewFiles": [
+          "test/eval-map-iterable-signal.test.js"
+        ],
+        "requiredChangedFiles": [
+          "index.d.ts",
+          "readme.md"
+        ],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-map-iterable-signal.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "add only requested API",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-map-iterable-signal"
+    },
+    {
+      "id": "preview-eval16-v2-map-validation-helper",
+      "repository": "https://github.com/sindresorhus/p-map",
+      "repo": "sindresorhus/p-map",
+      "kind": "refactor",
+      "slug": "map-validation-helper",
+      "head": "22dda61ea29037ba85af25e84bc5efba77e62f44",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/p-map",
+      "referenceCommit": null,
+      "contract": "Factor shared mapper and concurrency option validation into one private helper inside index.js used by both pMap and pMapIterable, preserving valid behavior, error classes/messages and public exports. Add regression tests; do not add runtime files outside the existing package files list.",
+      "acceptance": [
+        "Verify private helper is called by both public paths; full compatibility controls",
+        "Reject acceptance of zero concurrency and non-function mapper"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "index.d.ts"
+      ],
+      "status": "selected-unqualified",
+      "tree": "aec86b1edba6c63c8d1a9bc22e9e4f64b6ae990a",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-map-validation-helper.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-map-validation-helper.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-map-validation-helper"
+    },
+    {
+      "id": "preview-eval16-v2-queue-size-wakeup",
+      "repository": "https://github.com/sindresorhus/p-queue",
+      "repo": "sindresorhus/p-queue",
+      "kind": "bug",
+      "slug": "queue-size-wakeup",
+      "head": "cfa917af261fb6db9eb1281221ba21093eb49e3d",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/sindresorhus/p-queue/issues/249",
+      "referenceCommit": "d9cf2be011f3b7f127cac476de2d9927ed723491",
+      "contract": "onSizeLessThan resolves once waiting size drops below its threshold when start() or increased concurrency dequeues tasks, without waiting for an unrelated running task to finish. Preserve queue events and idle/pending semantics.",
+      "acceptance": [
+        "Hold running tasks on barriers while asserting waiter settlement",
+        "Reject completion-only wakeup and non-strict threshold mutants"
+      ],
+      "sourceFiles": [
+        "source/index.ts",
+        "source/priority-queue.ts",
+        "source/queue.ts",
+        "source/options.ts"
+      ],
+      "status": "selected-unqualified",
+      "tree": "57257d7806bd2b2b430f8bd255e2330cc3a06bfc",
+      "delivery": {
+        "allowedExistingFiles": [
+          "source/index.ts",
+          "source/priority-queue.ts",
+          "source/queue.ts",
+          "source/options.ts"
+        ],
+        "allowedNewFiles": [
+          "test/eval-queue-size-wakeup.test.ts"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-queue-size-wakeup.test.ts",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": [
+          "dist"
+        ]
+      },
+      "predecessorTask": "preview-eval20-v1-queue-size-wakeup"
+    },
+    {
+      "id": "preview-eval16-v2-queue-timeout-validation",
+      "repository": "https://github.com/sindresorhus/p-queue",
+      "repo": "sindresorhus/p-queue",
+      "kind": "bug",
+      "slug": "queue-timeout-validation",
+      "head": "a06fbc928725f074c72716e1ba21106df6822dae",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/sindresorhus/p-queue/issues/250",
+      "referenceCommit": "9efde425e233ab59ff3e6842430d40fd2208c103",
+      "contract": "Per-task timeout validation matches constructor rules: invalid non-positive, non-finite or non-numeric values reject with TypeError before the task runs; undefined inherits the configured default. Preserve valid timeout and cancellation behavior.",
+      "acceptance": [
+        "Invalid timeout rejection must leave no queued/running task or task side effect",
+        "Reject zero bypass and negative-value pass-through mutants"
+      ],
+      "sourceFiles": [
+        "source/index.ts",
+        "source/options.ts",
+        "source/queue.ts"
+      ],
+      "status": "selected-unqualified",
+      "tree": "9699bbc2f7febf55dd7ba3061d91a9936d331f32",
+      "delivery": {
+        "allowedExistingFiles": [
+          "source/index.ts",
+          "source/options.ts",
+          "source/queue.ts"
+        ],
+        "allowedNewFiles": [
+          "test/eval-queue-timeout-validation.test.ts"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-queue-timeout-validation.test.ts",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": [
+          "dist"
+        ]
+      },
+      "predecessorTask": "preview-eval20-v1-queue-timeout-validation"
+    },
+    {
+      "id": "preview-eval16-v2-queue-has-id",
+      "repository": "https://github.com/sindresorhus/p-queue",
+      "repo": "sindresorhus/p-queue",
+      "kind": "feature",
+      "slug": "queue-has-id",
+      "head": "180ab9e25cd10b6f548767d7176076b50d25e188",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/p-queue",
+      "referenceCommit": null,
+      "contract": "Add has(id: string): boolean for explicit ids supplied to add(). Return true while at least one matching task is queued or running, including duplicate ids; false after all matching tasks complete, reject or abort. clear() removes queued matches but retains running matches. Preserve custom queue support and all events, priorities and counters; generated ids are outside this new contract. Update docs and add type coverage and deterministic lifecycle tests.",
+      "acceptance": [
+        "Cover queued/running/completed, duplicate ids and clear/abort lifecycle",
+        "Reject queued-only lookup and stale completed-id mutants"
+      ],
+      "sourceFiles": [
+        "source/index.ts",
+        "source/priority-queue.ts",
+        "source/queue.ts",
+        "readme.md"
+      ],
+      "status": "selected-unqualified",
+      "tree": "e8e63896c7368b45ead03441d007c76f2b2591e5",
+      "delivery": {
+        "allowedExistingFiles": [
+          "source/index.ts",
+          "source/priority-queue.ts",
+          "source/queue.ts",
+          "readme.md"
+        ],
+        "allowedNewFiles": [
+          "test/eval-queue-has-id.test.ts"
+        ],
+        "requiredChangedFiles": [
+          "readme.md"
+        ],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-queue-has-id.test.ts",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "add only requested API",
+        "generatedDirectories": [
+          "dist"
+        ]
+      },
+      "predecessorTask": "preview-eval20-v1-queue-has-id"
+    },
+    {
+      "id": "preview-eval16-v2-query-own-types",
+      "repository": "https://github.com/sindresorhus/query-string",
+      "repo": "sindresorhus/query-string",
+      "kind": "bug",
+      "slug": "query-own-types",
+      "head": "7fd813338963583472586f228a74dcbfb067e785",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/sindresorhus/query-string/issues/421",
+      "referenceCommit": null,
+      "contract": "Only own properties of the supplied types map may customize parsing. Prototype names stay normal query keys in scalar and array forms; explicit own converters still run. Preserve null-prototype results and existing options.",
+      "acceptance": [
+        "Cover toString/valueOf/constructor/hasOwnProperty with plain and inherited maps",
+        "Reject inherited lookup and dropping own converters"
+      ],
+      "sourceFiles": [
+        "base.js",
+        "index.js",
+        "base.d.ts"
+      ],
+      "status": "selected-unqualified",
+      "tree": "2e753c732a067b79f688eacb3280f9c04fb3ee97",
+      "delivery": {
+        "allowedExistingFiles": [
+          "base.js",
+          "index.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-query-own-types.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-query-own-types.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-query-own-types"
+    },
+    {
+      "id": "preview-eval16-v2-query-relative-fragment",
+      "repository": "https://github.com/sindresorhus/query-string",
+      "repo": "sindresorhus/query-string",
+      "kind": "bug",
+      "slug": "query-relative-fragment",
+      "head": "f5daa07cc0c1bc91c00102426888fff2d17cedb6",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/sindresorhus/query-string/issues/417",
+      "referenceCommit": "872fb6f73346833b55cbabb5fee571e616c66fdd",
+      "contract": "stringifyUrl, pick and exclude accept relative URLs containing fragments and preserve the relative path. Preserve absolute URL behavior and fragment encoding. Add regression tests.",
+      "acceptance": [
+        "Relative/absolute URLs, fragment spaces, existing query and parseUrl round trip",
+        "Reject absolute-only handling and double-encoded fragments"
+      ],
+      "sourceFiles": [
+        "base.js",
+        "index.js",
+        "base.d.ts"
+      ],
+      "status": "selected-unqualified",
+      "tree": "39938c023e462941877d107b86a7969653d0255f",
+      "delivery": {
+        "allowedExistingFiles": [
+          "base.js",
+          "index.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-query-relative-fragment.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-query-relative-fragment.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-query-relative-fragment"
+    },
+    {
+      "id": "preview-eval16-v2-query-replacer-arrays",
+      "repository": "https://github.com/sindresorhus/query-string",
+      "repo": "sindresorhus/query-string",
+      "kind": "tests",
+      "slug": "query-replacer-arrays",
+      "head": "7fd813338963583472586f228a74dcbfb067e785",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/query-string",
+      "referenceCommit": null,
+      "contract": "Add tests for stringify replacer behavior with null, undefined, arrays, falsy scalar values and skip options. Tests must validate callback arguments and serialized output; preserve implementation and existing tests.",
+      "acceptance": [
+        "New tests reject bypassed replacer and incorrect null/undefined skipping",
+        "Full package suite passes"
+      ],
+      "sourceFiles": [
+        "base.js",
+        "base.d.ts",
+        "test"
+      ],
+      "status": "selected-unqualified",
+      "tree": "2e753c732a067b79f688eacb3280f9c04fb3ee97",
+      "delivery": {
+        "allowedExistingFiles": [],
+        "allowedNewFiles": [
+          "test/eval-query-replacer-arrays.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": false,
+        "requiredNewTestFile": "test/eval-query-replacer-arrays.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-query-replacer-arrays"
+    },
+    {
+      "id": "preview-eval16-v2-normalize-data-helper",
+      "repository": "https://github.com/sindresorhus/normalize-url",
+      "repo": "sindresorhus/normalize-url",
+      "kind": "refactor",
+      "slug": "normalize-data-helper",
+      "head": "863d275c21d6411a7494b8f728a515633bc01d84",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/normalize-url",
+      "referenceCommit": null,
+      "contract": "Inside index.js, separate data URL metadata normalization from payload treatment using a private helper. Preserve MIME casing, charset and parameter handling, default MIME omission, payload bytes and HTTP normalization. Add compatibility tests without altering package files or public exports.",
+      "acceptance": [
+        "Existing data/HTTP full controls; helper actually used",
+        "Reject payload lowercasing and incorrect default MIME retention"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "index.d.ts",
+        "test.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "45f4b682ba1249b472d69d48f615bf153de7d4ac",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-normalize-data-helper.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-normalize-data-helper.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-normalize-data-helper"
+    },
+    {
+      "id": "preview-eval16-v2-normalize-query-helper",
+      "repository": "https://github.com/sindresorhus/normalize-url",
+      "repo": "sindresorhus/normalize-url",
+      "kind": "refactor",
+      "slug": "normalize-query-helper",
+      "head": "863d275c21d6411a7494b8f728a515633bc01d84",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/normalize-url",
+      "referenceCommit": null,
+      "contract": "Inside index.js, extract query filtering and sorting from normalizeUrl into a private helper without altering option precedence, encoded reserved characters, duplicate value ordering, empty queries or fragments. Preserve public API, package files and existing tests; add new compatibility tests.",
+      "acceptance": [
+        "Shared extracted query phase invoked by normalizeUrl",
+        "Reject sorting despite sortQueryParameters=false and ignored removals"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "index.d.ts",
+        "test.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "45f4b682ba1249b472d69d48f615bf153de7d4ac",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-normalize-query-helper.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-normalize-query-helper.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-normalize-query-helper"
+    },
+    {
+      "id": "preview-eval16-v2-normalize-options-interactions",
+      "repository": "https://github.com/sindresorhus/normalize-url",
+      "repo": "sindresorhus/normalize-url",
+      "kind": "tests",
+      "slug": "normalize-options-interactions",
+      "head": "863d275c21d6411a7494b8f728a515633bc01d84",
+      "provenance": "owner-authored",
+      "source": "https://github.com/sindresorhus/normalize-url",
+      "referenceCommit": null,
+      "contract": "Add tests covering keepQueryParameters versus removeQueryParameters precedence, sortQueryParameters=false with duplicate values, and hash/text-fragment stripping interactions. Preserve implementation and existing tests.",
+      "acceptance": [
+        "New tests independently reject wrong precedence and unconditional sorting",
+        "Full suite passes"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "index.d.ts",
+        "test.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "45f4b682ba1249b472d69d48f615bf153de7d4ac",
+      "delivery": {
+        "allowedExistingFiles": [],
+        "allowedNewFiles": [
+          "test/eval-normalize-options-interactions.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": false,
+        "requiredNewTestFile": "test/eval-normalize-options-interactions.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-normalize-options-interactions"
+    },
+    {
+      "id": "preview-eval16-v2-uri-reserved-path",
+      "repository": "https://github.com/fastify/fast-uri",
+      "repo": "fastify/fast-uri",
+      "kind": "bug",
+      "slug": "uri-reserved-path",
+      "head": "75486d041b89d36d88f36c119cd8dc492174071d",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/fastify/fast-uri/pull/204",
+      "referenceCommit": "c2d8a1754541147fea0f437b5c03b4550b74f8c9",
+      "contract": "Serialize URI paths with literal RFC path characters preserved and valid reserved percent escapes retained as data. Preserve scheme-less colon handling and URN/mailto special handling. Add regression tests.",
+      "acceptance": [
+        "Literal semicolon/equal/colon and existing %3A forms; parse/serialize and equality controls",
+        "Reject literal escaping and decoded reserved escape mutants"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "lib/utils.js",
+        "lib/schemes.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "595759de602f66974656c056573e643d3874c77a",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js",
+          "lib/utils.js",
+          "lib/schemes.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-uri-reserved-path.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-uri-reserved-path.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-uri-reserved-path"
+    },
+    {
+      "id": "preview-eval16-v2-uri-component-case",
+      "repository": "https://github.com/fastify/fast-uri",
+      "repo": "fastify/fast-uri",
+      "kind": "bug",
+      "slug": "uri-component-case",
+      "head": "74e2a4dd7db4762c699d18778c2fc3d800005e6a",
+      "provenance": "public-issue-or-pr",
+      "source": "https://github.com/fastify/fast-uri/pull/207",
+      "referenceCommit": "2372aa32ffb333c9dc1262a8f9f8cf8ed02f7fc3",
+      "contract": "URI equality treats scheme and host case-insensitively but preserves case distinctions in path, query and fragment, except scheme-specific rules. Preserve percent normalization and error handling.",
+      "acceptance": [
+        "HTTP host case equality; path/query/fragment case inequality; scheme-specific controls",
+        "Reject whole-URI lowercasing and case-sensitive host mutants"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "lib/utils.js",
+        "lib/schemes.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "d64503b71d37eddecfc286ee73cb0a3f093991c0",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js",
+          "lib/utils.js",
+          "lib/schemes.js"
+        ],
+        "allowedNewFiles": [
+          "test/eval-uri-component-case.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-uri-component-case.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-uri-component-case"
+    },
+    {
+      "id": "preview-eval16-v2-uri-resolve-many",
+      "repository": "https://github.com/fastify/fast-uri",
+      "repo": "fastify/fast-uri",
+      "kind": "feature",
+      "slug": "uri-resolve-many",
+      "head": "a34ced25d015d12dfc2b0cf85ce01a4a0d12ecf6",
+      "provenance": "owner-authored",
+      "source": "https://github.com/fastify/fast-uri",
+      "referenceCommit": null,
+      "contract": "Add resolveMany(base, references, options): string[] on the existing CommonJS/default API object with its TypeScript declaration, equivalent to resolve(base, reference, options) for each ordered iterable element. Preserve base/options, propagate errors, support empty arrays and generators. Update typings/docs and add new tests.",
+      "acceptance": [
+        "RFC relative reference matrix plus generator order/options propagation",
+        "Types and negative controls for base chaining and reversed results"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "types/index.d.ts",
+        "README.md",
+        "lib/schemes.js"
+      ],
+      "status": "selected-unqualified",
+      "tree": "cb130fcbda248a7bfa8c1bb1ece2fd8842da8514",
+      "delivery": {
+        "allowedExistingFiles": [
+          "index.js",
+          "lib/schemes.js",
+          "types/index.d.ts",
+          "README.md"
+        ],
+        "allowedNewFiles": [
+          "test/eval-uri-resolve-many.test.js"
+        ],
+        "requiredChangedFiles": [
+          "types/index.d.ts",
+          "README.md"
+        ],
+        "requireImplementationChange": true,
+        "requiredNewTestFile": "test/eval-uri-resolve-many.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "add only requested API",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-uri-resolve-many"
+    },
+    {
+      "id": "preview-eval16-v2-uri-resolution-components",
+      "repository": "https://github.com/fastify/fast-uri",
+      "repo": "fastify/fast-uri",
+      "kind": "tests",
+      "slug": "uri-resolution-components",
+      "head": "a34ced25d015d12dfc2b0cf85ce01a4a0d12ecf6",
+      "provenance": "owner-authored",
+      "source": "https://github.com/fastify/fast-uri",
+      "referenceCommit": null,
+      "contract": "Add regression tests for relative reference resolution that distinguish escaped delimiters from separators, preserve UTF-8 escapes and handle empty query/fragment components. Preserve source and existing tests.",
+      "acceptance": [
+        "New tests reject premature escape decoding and dropped explicit empty query/fragment",
+        "Full suite and type checks pass"
+      ],
+      "sourceFiles": [
+        "index.js",
+        "lib/utils.js",
+        "lib/schemes.js",
+        "test"
+      ],
+      "status": "selected-unqualified",
+      "tree": "cb130fcbda248a7bfa8c1bb1ece2fd8842da8514",
+      "delivery": {
+        "allowedExistingFiles": [],
+        "allowedNewFiles": [
+          "test/eval-uri-resolution-components.test.js"
+        ],
+        "requiredChangedFiles": [],
+        "requireImplementationChange": false,
+        "requiredNewTestFile": "test/eval-uri-resolution-components.test.js",
+        "existingTests": "immutable",
+        "packageManifestsAndLocks": "immutable",
+        "publicExports": "unchanged",
+        "generatedDirectories": []
+      },
+      "predecessorTask": "preview-eval20-v1-uri-resolution-components"
+    }
+  ],
+  "preparationStage": "sources-environments-and-bug-reference-screening",
+  "launchReady": false,
+  "executionPlan": {
+    "mode": "serial",
+    "batchSize": 4,
+    "stopOn": "first non-success including environment failure",
+    "automaticRetry": false,
+    "runtime": "packages/preview/cli.mts via runtime.mts",
+    "runtimeFreeze": "pending full qualification",
+    "providerDispatch": "not started; repair and model-free preparation checkpoint on 2026-09-10",
+    "order": [
+      "uri-reserved-path",
+      "map-iterable-signal",
+      "normalize-data-helper",
+      "query-replacer-arrays",
+      "queue-size-wakeup",
+      "uri-resolve-many",
+      "map-validation-helper",
+      "normalize-options-interactions",
+      "query-own-types",
+      "queue-has-id",
+      "normalize-query-helper",
+      "uri-resolution-components",
+      "map-iterable-index",
+      "queue-timeout-validation",
+      "query-relative-fragment",
+      "uri-component-case"
+    ],
+    "toolEnvironment": {
+      "TSX_DISABLE_CACHE": "1",
+      "CI": "true",
+      "NODE_OPTIONS": "--no-experimental-strip-types",
+      "TSTYCHE_TYPESCRIPT_MODULE": "for fast-uri: workspace/node_modules/typescript/lib/typescript.js",
+      "TSTYCHE_STORE_PATH": "for fast-uri: private task state/tstyche-store"
+    },
+    "completionVerifierTimeoutMs": 240000
+  }
+}

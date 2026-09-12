@@ -1,0 +1,51 @@
+{
+  "batchId": "real-mixed-batch-v2-cache",
+  "tasks": [
+    {
+      "id": "real-mixed-v2-01-yargs-parser-385",
+      "repository": "https://github.com/yargs/yargs-parser",
+      "issue": "https://github.com/yargs/yargs-parser/issues/385",
+      "head": "913df9d1ddbea131e38516c09c2a81eb15c69968",
+      "tree": "df8a473f049037295dc343a06f1825b60e2b6811",
+      "version": "22.0.0",
+      "lockfile": "package-lock.json",
+      "title": "Config literal quote preservation",
+      "kind": "yargs",
+      "allowed": [
+        "lib/yargs-parser.ts",
+        "test/"
+      ]
+    },
+    {
+      "id": "real-mixed-v2-02-async-mutex-90",
+      "repository": "https://github.com/DirtyHairy/async-mutex",
+      "issue": "https://github.com/DirtyHairy/async-mutex/issues/90",
+      "head": "b0bb4c5aa0e42eb5ffc8d9342e56bb6de1b95554",
+      "tree": "96ce9d24dc4a5f0c69e346f22ea13908b308c3d7",
+      "version": "0.5.0",
+      "lockfile": "yarn.lock",
+      "title": "Sparse semaphore dispatch",
+      "kind": "semaphore",
+      "allowed": [
+        "src/Semaphore.ts",
+        "test/"
+      ]
+    },
+    {
+      "id": "real-mixed-v2-03-fast-json-stringify-684",
+      "repository": "https://github.com/fastify/fast-json-stringify",
+      "issue": "https://github.com/fastify/fast-json-stringify/issues/684",
+      "head": "e02b5bb3144870ebdd97b95ee60a7dd9d8947231",
+      "tree": "fbc98549ebfcb7d2eaebd20ad61aaef6a7c8dc66",
+      "version": "7.0.1",
+      "lockfile": null,
+      "title": "allOf serialization contract",
+      "kind": "fjs",
+      "allowed": [
+        "index.js",
+        "lib/merge-schemas.js",
+        "test/"
+      ]
+    }
+  ]
+}

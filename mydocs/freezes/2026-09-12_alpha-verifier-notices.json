@@ -1,0 +1,53 @@
+{
+  "scope": "Six historical single-task verifier upstream pins; supplementary notices, not a full history audit",
+  "entries": [
+    {
+      "repository": "eemeli/yaml",
+      "commit": "b91c3747333c7379bfd6edb6000fa163ca33805b",
+      "source": "https://github.com/eemeli/yaml/blob/b91c3747333c7379bfd6edb6000fa163ca33805b/LICENSE",
+      "license": "ISC",
+      "file": "third_party/licenses/eemeli--yaml.txt",
+      "sha256": "5bba27375d93e9119f76c1015f7672cf9ad5f70952296e0842fb2243d6376869"
+    },
+    {
+      "repository": "jsx-eslint/eslint-plugin-jsx-a11y",
+      "commit": "8f75961d965e47afb88854d324bd32fafde7acfe",
+      "source": "https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/8f75961d965e47afb88854d324bd32fafde7acfe/LICENSE.md",
+      "license": "MIT",
+      "file": "third_party/licenses/jsx-eslint--eslint-plugin-jsx-a11y.txt",
+      "sha256": "82b19019e25e266a310ef46800b3af726136a3cee79af8812dc83ca0b045afae"
+    },
+    {
+      "repository": "typescript-eslint/typescript-eslint",
+      "commit": "4586535ab24d7d5e9b3ba87e4adb8636f9314aca",
+      "source": "https://github.com/typescript-eslint/typescript-eslint/blob/4586535ab24d7d5e9b3ba87e4adb8636f9314aca/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/typescript-eslint--typescript-eslint.txt",
+      "sha256": "2eb5c7a0bba9deb77a98c81bf6b9d3fb1c67118eebf968b6b1a787b3f8928ee0"
+    },
+    {
+      "repository": "fcapolini/markout",
+      "commit": "edc7e40470887a1d2236d1843509b73c28a7a63f",
+      "source": "https://github.com/fcapolini/markout/blob/edc7e40470887a1d2236d1843509b73c28a7a63f/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/fcapolini--markout.txt",
+      "sha256": "890cdc790ce07ac61697438d81460e9dcfd8d8d6115ab9cce8dc2f73cb03d0aa"
+    },
+    {
+      "repository": "PostHog/wizard",
+      "commit": "821023a8387747716117d304fc4438298b0e41f7",
+      "source": "https://github.com/PostHog/wizard/blob/821023a8387747716117d304fc4438298b0e41f7/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/PostHog--wizard.txt",
+      "sha256": "6dd6cb84dae639a6d710f4217f507a1f590864cd2c4699557a8380b0a7254d27"
+    },
+    {
+      "repository": "adaltas/node-csv",
+      "commit": "3591c0770f7235b203f7cbcd7805ddedfaaf3ce1",
+      "source": "https://github.com/adaltas/node-csv/blob/3591c0770f7235b203f7cbcd7805ddedfaaf3ce1/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/adaltas--node-csv.txt",
+      "sha256": "032efe3de772e9f85c722ee9ff7ccd5cab01e024296b2b8d25893bf779be9360"
+    }
+  ]
+}

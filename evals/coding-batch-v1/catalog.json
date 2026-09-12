@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "01-pagination",
+      "category": "bug",
+      "title": "修复分页边界",
+      "contract": "修复 paginate(items,page,pageSize)。page 从 1 开始，page/pageSize 必须为正安全整数，否则 RangeError。返回 {items,total,page,pageSize,pageCount,hasNext}；超出末页返回空 items/hasNext=false，保留请求页码；空数组 pageCount=0。不得修改输入；分页不能重复或遗漏元素。补回归测试。",
+      "starter": {
+        "src/index.js": "export function paginate(items,page,size){let start=page*size;return {items:items.slice(start,start+size),total:items.length,page,pageSize:size,pageCount:Math.floor(items.length/size),hasNext:start+size<=items.length}}"
+      },
+      "reference": {
+        "src/index.js": "export function paginate(items,page,size){if(!Number.isSafeInteger(page)||page<1||!Number.isSafeInteger(size)||size<1)throw new RangeError();const pageCount=Math.ceil(items.length/size);return {items:items.slice((page-1)*size,page*size),total:items.length,page,pageSize:size,pageCount,hasNext:page<pageCount}}"
+      },
+      "checks": "for(let n=0;n<24;n++)for(let size=1;size<7;size++){const a=Array.from({length:n},(_,i)=>i);for(let p=1;p<=Math.ceil(n/size)+2;p++)assert.deepEqual(api.paginate(a,p,size),{items:a.slice((p-1)*size,p*size),total:n,page:p,pageSize:size,pageCount:Math.ceil(n/size),hasNext:p<Math.ceil(n/size)});assert.deepEqual(a,Array.from({length:n},(_,i)=>i))}for(const b of [0,-1,1.1,NaN,Infinity,Number.MAX_SAFE_INTEGER+1]){assert.throws(()=>api.paginate([],b,2),RangeError);assert.throws(()=>api.paginate([],1,b),RangeError)}",
+      "smoke": "assert.equal(typeof api.paginate,'function')",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "02-ttl-cache",
+      "category": "bug",
+      "title": "修复 TTL 缓存",
+      "contract": "修复 TTLCache(now=Date.now)。set(key,value,ttlMs) 要求 ttlMs 有限且非负，否则 RangeError；过期条件为 now()>=expiresAt。get 过期返回 undefined 并删除；ttl=0 立即过期。has 必须能区分不存在与值为 undefined。size() 仅统计有效条目。覆盖已有 key 时刷新期限。禁止后台计时器，测试使用可注入时钟。",
+      "starter": {
+        "src/index.js": "export class TTLCache{constructor(now=Date.now){this.now=now;this.data=new Map()}set(k,v,t){this.data.set(k,{v,end:this.now()+t})}get(k){const e=this.data.get(k);return e&&this.now()<=e.end?e.v:undefined}has(k){return this.get(k)!==undefined}size(){return this.data.size}}"
+      },
+      "reference": {
+        "src/index.js": "export class TTLCache{constructor(now=Date.now){this.now=now;this.data=new Map()}set(k,v,t){if(!Number.isFinite(t)||t<0)throw new RangeError();this.data.set(k,{v,end:this.now()+t})}alive(k){const e=this.data.get(k);if(e&&this.now()>=e.end){this.data.delete(k);return false}return !!e}get(k){return this.alive(k)?this.data.get(k).v:undefined}has(k){return this.alive(k)}size(){for(const k of this.data.keys())this.alive(k);return this.data.size}}"
+      },
+      "checks": "let now=10;const c=new api.TTLCache(()=>now);c.set('x',undefined,5);assert.equal(c.has('x'),true);now=15;assert.equal(c.has('x'),false);assert.equal(c.size(),0);c.set('a',1,0);assert.equal(c.get('a'),undefined);c.set('b',2,10);now=20;c.set('b',3,20);now=25;assert.equal(c.get('b'),3);now=40;assert.equal(c.get('b'),undefined);assert.equal(c.size(),0);for(const t of [-1,NaN,Infinity])assert.throws(()=>c.set('z',0,t),RangeError)",
+      "smoke": "const c=new api.TTLCache(()=>0);c.set('a',2,10);assert.equal(c.get('a'),2)",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "03-concurrency",
+      "category": "bug",
+      "title": "修复并发队列",
+      "contract": "修复 async mapLimit(items,limit,worker)。limit 为正安全整数，否则拒绝为 RangeError。最多 limit 个 worker 同时执行；worker 接收(item,index)并支持同步或异步返回；结果顺序与输入一致，不改变输入，空输入返回[]。worker 失败后不再启动新任务，等待已启动任务结束，然后以第一次观察到的原错误拒绝，不产生未处理拒绝。补测试。",
+      "starter": {
+        "src/index.js": "export async function mapLimit(items,limit,worker){return Promise.all(items.map(worker))}"
+      },
+      "reference": {
+        "src/index.js": "export async function mapLimit(items,limit,worker){if(!Number.isSafeInteger(limit)||limit<1)throw new RangeError();const out=new Array(items.length);let next=0,failed=false,error;async function run(){while(!failed&&next<items.length){const i=next++;try{out[i]=await worker(items[i],i)}catch(e){if(!failed){failed=true;error=e}}}}await Promise.all(Array.from({length:Math.min(limit,items.length)},run));if(failed)throw error;return out}"
+      },
+      "checks": "let active=0,peak=0;const a=[5,4,3,2,1];assert.deepEqual(await api.mapLimit(a,2,async(v,i)=>{active++;peak=Math.max(peak,active);await new Promise(r=>setTimeout(r,v));active--;return v+i}),[5,5,5,5,5]);assert.ok(peak<=2);assert.deepEqual(a,[5,4,3,2,1]);assert.deepEqual(await api.mapLimit([],1,x=>x),[]);for(const n of [0,-1,1.5,Infinity])await assert.rejects(()=>api.mapLimit([],n,x=>x),RangeError);let started=0,settled=false;const err=new Error('failed');await assert.rejects(()=>api.mapLimit([1,2,3,4],2,async x=>{started++;if(x===1)throw err;await new Promise(r=>setTimeout(r,8));settled=true}),e=>e===err);assert.equal(started,2);assert.equal(settled,true)",
+      "smoke": "assert.deepEqual(await api.mapLimit([1,2],2,x=>x+1),[2,3])",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "04-csv",
+      "category": "bug",
+      "title": "修复 CSV 导入",
+      "contract": "修复 parseCsv(text)，返回二维字符串数组。支持逗号、LF/CRLF、双引号字段、字段内逗号和换行，以及两个双引号表示一个双引号。引号只允许在字段开头，闭引号后只允许逗号、换行或EOF；不闭合/裸引号抛 SyntaxError。保留空字段、空格；空文本返回[]；结尾换行不增加虚假记录，中间空行是['']。补测试。",
+      "starter": {
+        "src/index.js": "export function parseCsv(s){return s.split('\\n').map(x=>x.split(','))}"
+      },
+      "reference": {
+        "src/index.js": "export function parseCsv(s){if(s==='')return [];const rows=[];let row=[],cell='',quoted=false,closed=false,ended=false;for(let i=0;i<s.length;i++){const c=s[i];ended=false;if(quoted){if(c==='\"'){if(s[i+1]==='\"'){cell+='\"';i++}else{quoted=false;closed=true}}else cell+=c;continue}if(c===','){row.push(cell);cell='';closed=false;continue}if(c==='\\n'||(c==='\\r'&&s[i+1]==='\\n')){if(c==='\\r')i++;row.push(cell);rows.push(row);row=[];cell='';closed=false;ended=true;continue}if(closed)throw new SyntaxError();if(c==='\"'){if(cell!=='')throw new SyntaxError();quoted=true}else cell+=c}if(quoted)throw new SyntaxError();if(!ended){row.push(cell);rows.push(row)}return rows}"
+      },
+      "checks": "assert.deepEqual(api.parseCsv(''),[]);assert.deepEqual(api.parseCsv('a,b\\r\\n1,2\\r\\n'),[['a','b'],['1','2']]);assert.deepEqual(api.parseCsv('\"a,b\",\"x\"\"y\"\\n\"two\\nlines\",\\n'),[['a,b','x\"y'],['two\\nlines','']]);assert.deepEqual(api.parseCsv('a\\n\\nb'),[['a'],[''],['b']]);assert.deepEqual(api.parseCsv(' ,,\"\"'),[[' ','','']]);for(const s of ['\"oops','ab\"c','\"a\"x'])assert.throws(()=>api.parseCsv(s),SyntaxError);for(let i=0;i<12;i++){const cells=['q'+i,'a,b','line\\nnext','quote\"here',''];assert.deepEqual(api.parseCsv(cells.map(x=>'\"'+x.replaceAll('\"','\"\"')+'\"').join(',')),[cells])}",
+      "smoke": "assert.deepEqual(api.parseCsv('a,b'),[['a','b']])",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "05-retry",
+      "category": "feature",
+      "title": "增加可控重试",
+      "contract": "实现 async retry(operation,{attempts=3,delayMs=0,shouldRetry=()=>true,sleep=默认延时函数}={})。operation 接收从1开始的尝试次数。attempts 为正安全整数，delayMs 有限非负，否则 RangeError 且不调用 operation。失败时仅在仍有次数且 shouldRetry(error,attempt) 返回 true 时 sleep(delayMs) 再重试；成功立即返回。耗尽/不可重试抛原错误，支持同步异常；sleep 失败立即传播，不再调用 operation。补测试，注入 sleep 避免长时间真实等待。",
+      "starter": {
+        "src/index.js": "export async function retry(operation,options={}){return operation(1)}"
+      },
+      "reference": {
+        "src/index.js": "export async function retry(operation,{attempts=3,delayMs=0,shouldRetry=()=>true,sleep=ms=>new Promise(r=>setTimeout(r,ms))}={}){if(!Number.isSafeInteger(attempts)||attempts<1||!Number.isFinite(delayMs)||delayMs<0)throw new RangeError();for(let i=1;i<=attempts;i++){try{return await operation(i)}catch(e){if(i===attempts||!shouldRetry(e,i))throw e;await sleep(delayMs)}}}"
+      },
+      "checks": "const seen=[],delays=[],err=new Error('retry');assert.equal(await api.retry(i=>{seen.push(i);if(i<3)throw err;return 7},{delayMs:12,sleep:async d=>delays.push(d)}),7);assert.deepEqual(seen,[1,2,3]);assert.deepEqual(delays,[12,12]);let n=0;await assert.rejects(()=>api.retry(()=>{n++;throw err},{shouldRetry:()=>false}),e=>e===err);assert.equal(n,1);const stop=new Error('sleep');n=0;await assert.rejects(()=>api.retry(()=>{n++;throw err},{sleep:async()=>{throw stop}}),e=>e===stop);assert.equal(n,1);for(const o of [{attempts:0},{attempts:1.5},{delayMs:-1},{delayMs:Infinity}])await assert.rejects(()=>api.retry(()=>assert.fail('must not run'),o),RangeError)",
+      "smoke": "assert.equal(await api.retry(()=>42),42)",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "06-config-merge",
+      "category": "feature",
+      "title": "增加不可变配置合并",
+      "contract": "实现 mergeConfig(base,override)，递归合并普通对象（原型为Object.prototype或null），数组和其他值整体替换；override 的 undefined 保留 base，null 是显式值。返回值不能和输入共享可变的普通对象/数组；不改变输入。任意深度出现 __proto__、prototype、constructor 自有键都抛 TypeError，包括数组中对象，不能污染原型。输入为 JSON 风格数据加 undefined，无需处理循环引用。补测试。",
+      "starter": {
+        "src/index.js": "export function mergeConfig(a,b){return {...a,...b}}"
+      },
+      "reference": {
+        "src/index.js": "const plain=x=>x!==null&&typeof x==='object'&&!Array.isArray(x)&&(Object.getPrototypeOf(x)===Object.prototype||Object.getPrototypeOf(x)===null);function copy(x){if(Array.isArray(x))return x.map(copy);if(plain(x)){const o={};for(const k of Object.keys(x)){if(['__proto__','prototype','constructor'].includes(k))throw new TypeError();o[k]=copy(x[k])}return o}return x}export function mergeConfig(a,b){a=copy(a);b=copy(b);function merge(x,y){if(y===undefined)return x;if(plain(x)&&plain(y)){const o={...x};for(const k of Object.keys(y))o[k]=merge(x[k],y[k]);return o}return y}return merge(a,b)}"
+      },
+      "checks": "const a={db:{host:'a',ports:[1,2]},on:true,n:3},b={db:{ports:[9]},n:undefined,on:null};const r=api.mergeConfig(a,b);assert.deepEqual(r,{db:{host:'a',ports:[9]},on:null,n:3});r.db.ports.push(10);assert.deepEqual(a.db.ports,[1,2]);assert.deepEqual(b.db.ports,[9]);const q=api.mergeConfig(a,{});q.db.ports.push(8);assert.deepEqual(a.db.ports,[1,2]);for(const k of ['__proto__','prototype','constructor']){const x=JSON.parse('{\"a\":[{\"'+k+'\":{\"polluted\":true}}]}');assert.throws(()=>api.mergeConfig({},x),TypeError);assert.throws(()=>api.mergeConfig(x,{}),TypeError)}assert.equal({}.polluted,undefined);assert.deepEqual(api.mergeConfig([1],[2]),[2])",
+      "smoke": "assert.deepEqual(api.mergeConfig({a:1},{b:2}),{a:1,b:2})",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "07-archive-filter",
+      "category": "cross-file",
+      "title": "贯通归档查询参数",
+      "contract": "给 handler→service→repository 链路增加 includeArchived。handleList(query,records) 中该参数未给出/false/'false'/'0' 为false，true/'true'/'1' 为true；其他输入返回 {status:400,error:'invalid includeArchived'}。默认过滤 archived===true 的记录，开启后包含全部，按 id 升序，返回 {status:200,items}。参数解析在 handler，透传在 service，过滤排序在 repository。listRecords(records,{includeArchived=false}={})、listItems(records,options)、handleList 均需独立可用，不改变输入。补各层测试。",
+      "starter": {
+        "src/index.js": "export {handleList} from './handler.js';export {listItems} from './service.js';export {listRecords} from './repository.js'",
+        "src/handler.js": "import {listItems} from './service.js';export function handleList(query,records){return {status:200,items:listItems(records)}}",
+        "src/service.js": "import {listRecords} from './repository.js';export function listItems(records){return listRecords(records)}",
+        "src/repository.js": "export function listRecords(records){return records.filter(x=>!x.archived)}"
+      },
+      "reference": {
+        "src/handler.js": "import {listItems} from './service.js';export function handleList(query,records){const v=query.includeArchived;if(![undefined,false,'false','0',true,'true','1'].includes(v))return {status:400,error:'invalid includeArchived'};return {status:200,items:listItems(records,{includeArchived:[true,'true','1'].includes(v)})}}",
+        "src/service.js": "import {listRecords} from './repository.js';export function listItems(records,options){return listRecords(records,options)}",
+        "src/repository.js": "export function listRecords(records,{includeArchived=false}={}){return records.filter(x=>includeArchived||x.archived!==true).sort((a,b)=>a.id-b.id)}"
+      },
+      "checks": "const a=[{id:3,archived:true},{id:2},{id:1,archived:false}],before=JSON.stringify(a);for(const v of [undefined,false,'false','0'])assert.deepEqual(api.handleList({includeArchived:v},a).items.map(x=>x.id),[1,2]);for(const v of [true,'true','1'])assert.deepEqual(api.handleList({includeArchived:v},a).items.map(x=>x.id),[1,2,3]);for(const v of ['yes',0,1,null,[]])assert.deepEqual(api.handleList({includeArchived:v},a),{status:400,error:'invalid includeArchived'});assert.deepEqual(api.listItems(a,{includeArchived:true}).map(x=>x.id),[1,2,3]);assert.deepEqual(api.listRecords(a).map(x=>x.id),[1,2]);assert.equal(JSON.stringify(a),before)",
+      "smoke": "assert.equal(api.handleList({},[]).status,200)",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "08-money-contract",
+      "category": "cross-file",
+      "title": "统一金额精度契约",
+      "contract": "把订单链路改为整数分。parseMoney(string) 接受非负十进制金额，必须有整数部分，可有1/2位小数；拒绝空白、符号、指数、三位小数，抛 RangeError。结果必须为安全整数。lineTotal({price,quantity}) 接收金额字符串和非负安全整数量，返回整数分，非法数量或乘积溢出抛 RangeError。invoice(lines) 返回 {totalCents,display}，汇总溢出抛 RangeError；display 固定两位小数、无币种。复用 money 模块，不用浮点金额逐项相加，保留导出名并补跨模块测试。",
+      "starter": {
+        "src/index.js": "export {parseMoney} from './money.js';export {lineTotal} from './cart.js';export {invoice} from './invoice.js'",
+        "src/money.js": "export function parseMoney(s){return Number(s)}",
+        "src/cart.js": "import {parseMoney} from './money.js';export function lineTotal(line){return parseMoney(line.price)*line.quantity}",
+        "src/invoice.js": "import {lineTotal} from './cart.js';export function invoice(lines){const n=lines.reduce((s,x)=>s+lineTotal(x),0);return {totalCents:n,display:String(n)}}"
+      },
+      "reference": {
+        "src/money.js": "export function parseMoney(s){if(typeof s!=='string'||!/^\\d+(?:\\.\\d{1,2})?$/.test(s))throw new RangeError();const [a,b='']=s.split('.');const n=BigInt(a)*100n+BigInt(b.padEnd(2,'0'));if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return Number(n)}",
+        "src/cart.js": "import {parseMoney} from './money.js';export function lineTotal({price,quantity}){if(!Number.isSafeInteger(quantity)||quantity<0)throw new RangeError();const n=BigInt(parseMoney(price))*BigInt(quantity);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return Number(n)}",
+        "src/invoice.js": "import {lineTotal} from './cart.js';export function invoice(lines){const n=lines.reduce((s,x)=>s+BigInt(lineTotal(x)),0n);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return {totalCents:Number(n),display:String(n/100n)+'.'+String(n%100n).padStart(2,'0')}}"
+      },
+      "checks": "assert.equal(api.parseMoney('1.2'),120);assert.equal(api.parseMoney('000.01'),1);for(const s of ['',' 1','-1','1e2','.5','1.001','90071992547409.92'])assert.throws(()=>api.parseMoney(s),RangeError);assert.equal(api.parseMoney('90071992547409.91'),Number.MAX_SAFE_INTEGER);assert.deepEqual(api.invoice([{price:'0.10',quantity:1},{price:'0.20',quantity:1}]),{totalCents:30,display:'0.30'});assert.deepEqual(api.invoice([]),{totalCents:0,display:'0.00'});assert.equal(api.lineTotal({price:'1.99',quantity:3}),597);for(const q of [-1,1.5,Infinity])assert.throws(()=>api.lineTotal({price:'1',quantity:q}),RangeError);assert.throws(()=>api.invoice([{price:'90071992547409.91',quantity:1},{price:'0.01',quantity:1}]),RangeError);assert.throws(()=>api.lineTotal({price:'90071992547409.91',quantity:2}),RangeError)",
+      "smoke": "assert.equal(typeof api.invoice,'function')",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    },
+    {
+      "id": "09-duration-tests",
+      "category": "tests",
+      "title": "补齐解析器回归测试",
+      "contract": "parseDuration 已正确实现，仅允许新增 test/ 下 *.test.js，不修改任何现有文件。契约：非负整数字符串加 ms/s/m/h（大小写敏感），允许前导零；拒绝空白、小数、负号、未知单位和非字符串（TypeError）；结果超过安全整数抛 RangeError。覆盖单位、零、边界、非法输入和溢出。测试通过 npm test 独立运行，不依赖网络、环境变量或读取实现源码文本。验收会将测试用于正确实现和多个错误实现，验证确实能发现行为回归。",
+      "starter": {
+        "src/index.js": "export function parseDuration(s){if(typeof s!=='string')throw new TypeError();const m=/^(\\d+)(ms|s|m|h)$/.exec(s);if(!m)throw new TypeError();const n=BigInt(m[1])*({ms:1n,s:1000n,m:60000n,h:3600000n}[m[2]]);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return Number(n)}"
+      },
+      "reference": {
+        "test/duration.test.js": "import test from 'node:test';import assert from 'node:assert/strict';import {parseDuration as p} from '../src/index.js';test('contract',()=>{assert.equal(p('1ms'),1);assert.equal(p('2s'),2000);assert.equal(p('3m'),180000);assert.equal(p('1h'),3600000);assert.equal(p('0s'),0);assert.equal(p('001s'),1000);assert.equal(p('9007199254740991ms'),Number.MAX_SAFE_INTEGER);for(const x of ['1.5s','-1s',' 1s','1S','1d','',null])assert.throws(()=>p(x),TypeError);assert.throws(()=>p('9007199254740992ms'),RangeError)})"
+      },
+      "checks": "assert.equal(api.parseDuration('1s'),1000)",
+      "smoke": "assert.equal(api.parseDuration('2s'),2000)",
+      "allowed": [
+        "test/"
+      ]
+    },
+    {
+      "id": "10-normalization",
+      "category": "refactor",
+      "title": "提取共享名称规范化",
+      "contract": "report.js 与 mailer.js 有重复逻辑，提取为 src/normalize.js 导出的 normalizeNames(names)，两个调用方必须导入并实际调用它，index.js 也导出 normalizeNames。保留行为：仅字符串、trim 后小写、丢弃空串、去重保留首次出现顺序、不改变输入。buildReport 返回 {names,count}，buildRecipients 返回逗号连接字符串。补回归测试，不靠改变公共行为完成重构。",
+      "starter": {
+        "src/index.js": "export {buildReport} from './report.js';export {buildRecipients} from './mailer.js'",
+        "src/report.js": "export function buildReport(input){const names=[...new Set(input.filter(x=>typeof x==='string').map(x=>x.trim().toLowerCase()).filter(Boolean))];return {names,count:names.length}}",
+        "src/mailer.js": "export function buildRecipients(input){return [...new Set(input.filter(x=>typeof x==='string').map(x=>x.trim().toLowerCase()).filter(Boolean))].join(',')}"
+      },
+      "reference": {
+        "src/index.js": "export {buildReport} from './report.js';export {buildRecipients} from './mailer.js';export {normalizeNames} from './normalize.js'",
+        "src/normalize.js": "export function normalizeNames(input){return [...new Set(input.filter(x=>typeof x==='string').map(x=>x.trim().toLowerCase()).filter(Boolean))]}",
+        "src/report.js": "import {normalizeNames} from './normalize.js';export function buildReport(input){const names=normalizeNames(input);return {names,count:names.length}}",
+        "src/mailer.js": "import {normalizeNames} from './normalize.js';export function buildRecipients(input){return normalizeNames(input).join(',')}"
+      },
+      "checks": "const a=[' Alice ','BOB','alice',null,12,'  ','ÉVA','éva'],before=JSON.stringify(a);assert.deepEqual(api.normalizeNames(a),['alice','bob','éva']);assert.deepEqual(api.buildReport(a),{names:['alice','bob','éva'],count:3});assert.equal(api.buildRecipients(a),'alice,bob,éva');assert.equal(JSON.stringify(a),before);assert.deepEqual(api.normalizeNames([]),[])",
+      "smoke": "assert.deepEqual(api.buildReport([' A ','a']),{names:['a'],count:1})",
+      "allowed": [
+        "src/",
+        "test/"
+      ]
+    }
+  ],
+  "durationMutants": [
+    "export function parseDuration(s){if(typeof s!=='string')throw new TypeError();const m=/^(\\d+)(ms|s|m|h)$/.exec(s);if(!m)throw new TypeError();const n=BigInt(m[1])*({ms:1n,s:1000n,m:60000n,h:3600n}[m[2]]);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return Number(n)}",
+    "export function parseDuration(s){if(typeof s!=='string')throw new TypeError();const m=/^(\\d+(?:\\.\\d+)?)(ms|s|m|h)$/.exec(s);if(!m)throw new TypeError();const n=BigInt(Math.trunc(Number(m[1])))*({ms:1n,s:1000n,m:60000n,h:3600000n}[m[2]]);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return Number(n)}",
+    "export function parseDuration(s){if(typeof s!=='string')throw new TypeError();const m=/^(\\d+)(ms|s|m|h)$/.exec(s);if(!m)throw new TypeError();const n=BigInt(m[1])*({ms:1n,s:1000n,m:60000n,h:3600000n}[m[2]]);return Number(n)}",
+    "export function parseDuration(s){if(typeof s!=='string')throw new TypeError();const m=/^([1-9]\\d*)(ms|s|m|h)$/.exec(s);if(!m)throw new TypeError();const n=BigInt(m[1])*({ms:1n,s:1000n,m:60000n,h:3600000n}[m[2]]);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new RangeError();return Number(n)}"
+  ]
+}

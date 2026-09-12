@@ -1,0 +1,112 @@
+{
+  "scope": "Nine additional upstream projects pinned by basic-coding and real-mixed catalogs at a61f20f; not a full historical source audit",
+  "entries": [
+    {
+      "repository": "DirtyHairy/async-mutex",
+      "commit": "b0bb4c5aa0e42eb5ffc8d9342e56bb6de1b95554",
+      "source": "https://github.com/DirtyHairy/async-mutex/blob/b0bb4c5aa0e42eb5ffc8d9342e56bb6de1b95554/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/DirtyHairy--async-mutex.txt",
+      "sha256": "afdf40d8e1d2478ab7ee49dfa0e75847033d59ed70c4368ddd4846f1eab2ff9e",
+      "catalogs": [
+        "evals/real-mixed-batch-v1/catalog.json",
+        "evals/real-mixed-batch-v2-cache/catalog.json",
+        "evals/real-mixed-batch-v3-workdir/catalog.json"
+      ]
+    },
+    {
+      "repository": "epoberezkin/fast-deep-equal",
+      "commit": "a8e7172b6c411ec320d6045fd4afbd2abc1b4bde",
+      "source": "https://github.com/epoberezkin/fast-deep-equal/blob/a8e7172b6c411ec320d6045fd4afbd2abc1b4bde/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/epoberezkin--fast-deep-equal.txt",
+      "sha256": "7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a",
+      "catalogs": [
+        "evals/basic-coding-v1/catalog.json"
+      ]
+    },
+    {
+      "repository": "fastify/fast-json-stringify",
+      "commit": "e02b5bb3144870ebdd97b95ee60a7dd9d8947231",
+      "source": "https://github.com/fastify/fast-json-stringify/blob/e02b5bb3144870ebdd97b95ee60a7dd9d8947231/LICENSE",
+      "license": "MIT",
+      "file": "third_party/licenses/fastify--fast-json-stringify.txt",
+      "sha256": "b08de5bb7b21f44a8358edf74febe50c75ef2a1e5470e06c8919eb934cba067c",
+      "catalogs": [
+        "evals/real-mixed-batch-v1/catalog.json",
+        "evals/real-mixed-batch-v2-cache/catalog.json",
+        "evals/real-mixed-batch-v3-workdir/catalog.json"
+      ]
+    },
+    {
+      "repository": "sindresorhus/onetime",
+      "commit": "481ec583f8303e98c4d1d16bb316ef8e6b04d72c",
+      "source": "https://github.com/sindresorhus/onetime/blob/481ec583f8303e98c4d1d16bb316ef8e6b04d72c/license",
+      "license": "MIT",
+      "file": "third_party/licenses/sindresorhus--onetime.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3",
+      "catalogs": [
+        "evals/basic-coding-v3-managed/catalog.json"
+      ]
+    },
+    {
+      "repository": "sindresorhus/p-defer",
+      "commit": "67a30a04de1086305b24a31a37594d3129fee415",
+      "source": "https://github.com/sindresorhus/p-defer/blob/67a30a04de1086305b24a31a37594d3129fee415/license",
+      "license": "MIT",
+      "file": "third_party/licenses/sindresorhus--p-defer.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3",
+      "catalogs": [
+        "evals/basic-coding-v3-managed/catalog.json"
+      ]
+    },
+    {
+      "repository": "sindresorhus/p-limit",
+      "commit": "783068bb9e967fd7bea8642e1bf5a3627fe38bdf",
+      "source": "https://github.com/sindresorhus/p-limit/blob/783068bb9e967fd7bea8642e1bf5a3627fe38bdf/license",
+      "license": "MIT",
+      "file": "third_party/licenses/sindresorhus--p-limit.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3",
+      "catalogs": [
+        "evals/basic-coding-v1/catalog.json",
+        "evals/basic-coding-v2-host-scratch/catalog.json"
+      ]
+    },
+    {
+      "repository": "sindresorhus/p-retry",
+      "commit": "81cd2f0e523faeeff685c5878224a0d7390ff0db",
+      "source": "https://github.com/sindresorhus/p-retry/blob/81cd2f0e523faeeff685c5878224a0d7390ff0db/license",
+      "license": "MIT",
+      "file": "third_party/licenses/sindresorhus--p-retry.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3",
+      "catalogs": [
+        "evals/basic-coding-v1/catalog.json",
+        "evals/basic-coding-v2-host-scratch/catalog.json"
+      ]
+    },
+    {
+      "repository": "sindresorhus/yocto-queue",
+      "commit": "b07eac099753833b29d06c614149904445739776",
+      "source": "https://github.com/sindresorhus/yocto-queue/blob/b07eac099753833b29d06c614149904445739776/license",
+      "license": "MIT",
+      "file": "third_party/licenses/sindresorhus--yocto-queue.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3",
+      "catalogs": [
+        "evals/basic-coding-v1/catalog.json",
+        "evals/basic-coding-v2-host-scratch/catalog.json"
+      ]
+    },
+    {
+      "repository": "yargs/yargs-parser",
+      "commit": "913df9d1ddbea131e38516c09c2a81eb15c69968",
+      "source": "https://github.com/yargs/yargs-parser/blob/913df9d1ddbea131e38516c09c2a81eb15c69968/LICENSE.txt",
+      "license": "ISC",
+      "file": "third_party/licenses/yargs--yargs-parser.txt",
+      "sha256": "365496ca1f56da40b23c9815fc40fa9005847b2f8f8fd1c1a4929ef25ec8cd1d",
+      "catalogs": [
+        "evals/real-mixed-batch-v1/catalog.json",
+        "evals/real-mixed-batch-v2-cache/catalog.json"
+      ]
+    }
+  ]
+}

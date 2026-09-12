@@ -1,0 +1,1 @@
+{"extends": "../../packages/preview/tsconfig.json", "include": ["./*.mts"], "exclude": []}

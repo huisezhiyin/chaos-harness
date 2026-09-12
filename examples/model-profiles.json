@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "profiles": {
+    "qwen": {
+      "adapter": "chat-api",
+      "provider": "dashscope",
+      "model": "qwen3.8-max",
+      "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "apiKeyEnv": "DASHSCOPE_API_KEY",
+      "dialect": "dashscope",
+      "thinking": "enabled",
+      "contextTokens": 1000000,
+      "maxOutputTokens": 32768
+    },
+    "gpt": {
+      "adapter": "codex-app-server",
+      "model": "gpt-5.5"
+    },
+    "deepseek": {
+      "adapter": "chat-api",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "baseUrl": "https://api.deepseek.com",
+      "apiKeyEnv": "DEEPSEEK_API_KEY",
+      "dialect": "deepseek",
+      "thinking": "disabled",
+      "contextTokens": 32000,
+      "maxOutputTokens": 4096
+    },
+    "kimi": {
+      "adapter": "chat-api",
+      "provider": "moonshot",
+      "model": "kimi-k2.6",
+      "baseUrl": "https://api.moonshot.ai/v1",
+      "apiKeyEnv": "MOONSHOT_API_KEY",
+      "dialect": "kimi",
+      "thinking": "disabled",
+      "contextTokens": 32000,
+      "maxOutputTokens": 4096
+    },
+    "openrouter": {
+      "enabled": false,
+      "adapter": "chat-api",
+      "provider": "openrouter",
+      "model": "vendor/replace-with-exact-model",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKeyEnv": "OPENROUTER_API_KEY",
+      "dialect": "openrouter",
+      "thinking": "disabled",
+      "contextTokens": 32000,
+      "maxOutputTokens": 4096
+    },
+    "dogfood": {
+      "enabled": false,
+      "adapter": "chat-api",
+      "provider": "company-dogfood",
+      "model": "replace-with-authorized-model",
+      "baseUrl": "https://configure-authorized-endpoint.invalid/v1",
+      "apiKeyEnv": "CHAOS_DOGFOOD_API_KEY",
+      "dialect": "openai",
+      "thinking": "default",
+      "contextTokens": 32000,
+      "maxOutputTokens": 4096
+    }
+  }
+}

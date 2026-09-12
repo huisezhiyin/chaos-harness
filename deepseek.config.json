@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "provider": "deepseek",
+  "baseUrl": "https://api.deepseek.com",
+  "model": "deepseek-v4-flash",
+  "maxTokens": 1000,
+  "credential": {
+    "env": "DEEPSEEK_API_KEY",
+    "envFile": "${HOME}/deepseek.env"
+  }
+}

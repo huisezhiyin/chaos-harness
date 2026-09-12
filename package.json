@@ -1,0 +1,26 @@
+{
+  "name": "chaos-harness",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.6.0",
+  "bin": {
+    "chaos": "bin/chaos.mjs"
+  },
+  "scripts": {
+    "agent": "tsx packages/agent/src/cli.ts",
+    "agent:codex": "tsx packages/adapters/codex-app-server/src/cli.ts",
+    "agent:opencode": "tsx packages/adapters/opencode-codex-bridge/src/cli.ts",
+    "chaos": "tsx packages/adapters/opencode-codex-bridge/src/daily-cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run packages && node --test evals/*.test.mjs evals/*/*.test.mjs",
+    "check": "pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "4.23.5",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vitest": "4.0.18"
+  }
+}

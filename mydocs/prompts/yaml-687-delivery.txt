@@ -1,0 +1,7 @@
+Fix GitHub Issue #687 in this fixed-SHA eemeli/yaml checkout.
+
+Reproducer: parseDocument('|5\n#comment') has an empty string value and a document comment. After toString() and parsing again, the comment incorrectly becomes string content. Preserve the scalar value and the comment across the round-trip. Cover literal and folded empty root block scalars, and preserve valid nested scalar and hash-content behavior.
+
+Inspect the local source and docs, implement a focused fix, and add regression tests. Run the focused tests, the existing full source test suite, type checks and build; inspect the final diff and close your task plan before proposing completion. Report remaining gaps honestly.
+
+Work only in this checkout. Do not modify package manifests, lockfiles, dependency installations or submodules. Do not access credentials, fetch external solutions, read other checkouts or Harness/verifier internals, comment on GitHub, commit, push or open a PR. Do not run clean, publish or deployment commands. Let Chaos Harness manage checkpoints and recovery; do not restart the launcher to bypass them.

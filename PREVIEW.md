@@ -9,8 +9,8 @@
 安装上述前置工具后，从本发布仓库取得源码。若仓库尚未公开，需要已有访问权限。
 
 ```sh
-git clone --single-branch --branch main https://github.com/huisezhiyin/chaos-harness-public.git
-cd chaos-harness-public
+git clone --single-branch --branch main https://github.com/huisezhiyin/chaos-harness.git
+cd chaos-harness
 git rev-parse HEAD
 ```
 
@@ -22,7 +22,7 @@ node bin/chaos-preview.mjs --help
 pnpm check
 ```
 
-当前为源码 Alpha 候选；具体发布状态见仓库 Releases，验证结果见 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness-public/actions/workflows/preview.yml)。
+当前为源码 Alpha 候选；具体发布状态见仓库 Releases，验证结果见 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness/actions/workflows/preview.yml)。
 
 新建仅自己可读的配置文件，例如 `~/.config/chaos-preview.env`，填写自己的服务配置：
 
@@ -63,6 +63,6 @@ pnpm check
 node bin/chaos-preview-check.mjs --native-host
 ```
 
-基础自检不需要 API 密钥、旧评测目标或旧评测依赖。`--native-host` 需要安装受支持的 OpenCode；它仅使用本地固定响应验证 shell 环境，不调用远程模型。GitHub CI 执行基础自检。本副本已通过本地产品与原生 Host 检查；对应提交的基础自检以 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness-public/actions/workflows/preview.yml) 为准。
+基础自检不需要 API 密钥、旧评测目标或旧评测依赖。`--native-host` 需要安装受支持的 OpenCode；它仅使用本地固定响应验证 shell 环境，不调用远程模型。GitHub CI 执行基础自检。本副本已通过本地产品与原生 Host 检查；对应提交的基础自检以 [本仓库 CI](https://github.com/huisezhiyin/chaos-harness/actions/workflows/preview.yml) 为准。
 
 本副本范围见 [脱敏说明](docs/public-source.md)，公开评测结论见 [评测摘要](docs/evaluation-status.md)。

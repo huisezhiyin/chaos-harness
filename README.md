@@ -1,6 +1,6 @@
 # Chaos Harness
 
-[![Preview checks](https://github.com/huisezhiyin/chaos-harness-public/actions/workflows/preview.yml/badge.svg?branch=main)](https://github.com/huisezhiyin/chaos-harness-public/actions/workflows/preview.yml)
+[![Preview checks](https://github.com/huisezhiyin/chaos-harness/actions/workflows/preview.yml/badge.svg?branch=main)](https://github.com/huisezhiyin/chaos-harness/actions/workflows/preview.yml)
 
 实验性的 Coding Harness，通过 OpenCode 执行工具，为代码任务提供过程记录、完成检查和有界失败恢复。
 
